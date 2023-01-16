@@ -1,5 +1,7 @@
 import random
 
+# ZAKRES_MIN i ZAKRES_MAX oznaczają przedział z którego losujemy
+# ILE_LICZB oznacza ilość liczb, którą losujemy
 ZAKRES_MIN = 0
 ZAKRES_MAX = 100
 ILE_LICZB = 100
