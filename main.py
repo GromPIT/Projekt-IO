@@ -1,10 +1,10 @@
-import random
+import random, datetime
 
 # ZAKRES_MIN i ZAKRES_MAX oznaczają przedział z którego losujemy
 # ILE_LICZB oznacza ilość liczb, którą losujemy
 ZAKRES_MIN = 0
 ZAKRES_MAX = 1000000
-ILE_LICZB = 10000
+ILE_LICZB = 1000
 
 def bubelSort(listaLiczb):
 
@@ -27,11 +27,25 @@ def generujLiczbyLosowe():
     return listaLiczb
 
 def main():
+    # wyniki - słownik, który będzie zawierał pomiary czasu poszczególnych algorytmów (pary: nazwa - czas)
+    wyniki = {}
+
+
     listaLiczb = generujLiczbyLosowe()
     print(listaLiczb)
+
+    # sortowanie bąbelkowe
+    czas_start = datetime.datetime.now()
     posortowane = bubelSort(listaLiczb)
+    czas_stop = datetime.datetime.now()
+    wyniki['Sortowanie bąbelkowe'] = czas_stop - czas_start
+
     print()
     print(posortowane)
+
+
+    # wyświetlenie wyników - na razie dirty
+    print(wyniki)
     return
 
 if __name__ == "__main__":
