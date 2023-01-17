@@ -6,6 +6,17 @@ ZAKRES_MIN = 0
 ZAKRES_MAX = 1000000
 ILE_LICZB = 1000
 
+# generowanie tablicy (listy) liczb losowych w zadanym zakresie i ilości
+def generujLiczbyLosowe():
+    listaLiczb = []
+
+    for i in range(ILE_LICZB):
+        listaLiczb.append(random.randint(ZAKRES_MIN, ZAKRES_MAX))
+
+    return listaLiczb
+
+
+# sortowanie bąbelkowe
 def bubelSort(listaLiczb):
 
     zamiana = True
@@ -16,13 +27,6 @@ def bubelSort(listaLiczb):
             if listaLiczb[i] > listaLiczb[i+1]:
                 zamiana = True
                 listaLiczb[i], listaLiczb[i+1] = listaLiczb[i+1], listaLiczb[i]
-
-    return listaLiczb
-def generujLiczbyLosowe():
-    listaLiczb = []
-
-    for i in range(ILE_LICZB):
-        listaLiczb.append(random.randint(ZAKRES_MIN, ZAKRES_MAX))
 
     return listaLiczb
 
