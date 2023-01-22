@@ -17,6 +17,9 @@ def generujLiczbyLosowe():
 
     return listaLiczb
 
+# Merge-sort Marysia
+# ...
+
 
 # sortowanie bąbelkowe
 def bubelSort(listaLiczb):
