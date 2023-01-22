@@ -1,5 +1,7 @@
 import random, datetime
 
+# komentarz Marysi
+
 # ZAKRES_MIN i ZAKRES_MAX oznaczają przedział z którego losujemy
 # ILE_LICZB oznacza ilość liczb, którą losujemy
 ZAKRES_MIN = 0
