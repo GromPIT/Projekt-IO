@@ -98,6 +98,17 @@ def main():
     print()
     print(posortowane)
 
+    # wbudowana w pythona metoda sorted
+    listaSorted = listaLiczb.copy()
+    print("Sortowanie ""sorted")
+    czas_start = datetime.datetime.now()
+    posortowane = sorted(listaSorted)
+    czas_stop = datetime.datetime.now()
+    wyniki['Sorted'] = czas_stop - czas_start
+
+    print()
+    print(posortowane)
+
     # wyświetlenie wyników - na razie dirty
     print(wyniki)
     return
