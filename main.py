@@ -119,17 +119,28 @@ def main():
     listaLiczb = generujLiczbyLosowe()
     print(listaLiczb)
 
-    # sortowanie bąbelkowe
-    listaBubel = listaLiczb.copy()
-    print("Sortowanie bąbelkowe")
+    # wbudowana w pythona metoda sorted
+    listaSorted = listaLiczb.copy()
+    print("Sortowanie ""sorted")
     czas_start = datetime.datetime.now()
-    posortowane = bubelSort(listaBubel)
+    posortowane = sorted(listaSorted)
     czas_stop = datetime.datetime.now()
-    wyniki['Sortowanie bąbelkowe'] = czas_stop - czas_start
+    wyniki['Sorted'] = czas_stop - czas_start
 
     print()
     print(posortowane)
+
+    # sortowanie bąbelkowe
+    # listaBubel = listaLiczb.copy()
+    # print("Sortowanie bąbelkowe")
+    # czas_start = datetime.datetime.now()
+    # posortowane = bubelSort(listaBubel)
+    # czas_stop = datetime.datetime.now()
+    # wyniki['Sortowanie bąbelkowe'] = czas_stop - czas_start
     #
+    # print()
+    # print(posortowane)
+
     # sortowanie szybkie
     listaQuick = listaLiczb.copy()
     print("Sortowanie szybkie")
@@ -150,7 +161,6 @@ def main():
 
     print()
     print(posortowane)
-
     # wyświetlenie wyników - na razie dirty
     print(wyniki)
     return
