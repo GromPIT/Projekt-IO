@@ -5,8 +5,8 @@ import random, datetime
 # ZAKRES_MIN i ZAKRES_MAX oznaczają przedział z którego losujemy
 # ILE_LICZB oznacza ilość liczb, którą losujemy
 ZAKRES_MIN = 0
-ZAKRES_MAX = 10000000
-ILE_LICZB = 100000
+ZAKRES_MAX = 1000
+ILE_LICZB = 1000
 
 # generowanie tablicy (listy) liczb losowych w zadanym zakresie i ilości
 def generujLiczbyLosowe():
@@ -68,6 +68,49 @@ def quickSort(listaLiczb, lewy_indeks, prawy_indeks):
 
     return listaLiczb
 
+# Piter
+# Heap sort
+def swap(lista, i, j):
+    lista[i], lista[j] = lista[j], lista[i]
+    pass
+
+def shiftDown(lista, i, upper):
+    while True:
+        l, r = i*2+1, i*2+2
+        if max(l, r) < upper:
+            # 2 children
+            if lista[i] >= max(lista[l], lista[r]):
+                break
+            elif lista[l] > lista[r]:
+                swap(lista, i, l)
+                i = l
+            else:
+                swap(lista, i, r)
+                i = r
+        elif l < upper:
+            if lista[l] > lista[i]:
+                swap(lista, i, l)
+                i = l
+            else:
+                break
+        elif r < upper:
+            if lista[r] > lista[i]:
+                swap(lista, i, r)
+                i = r
+            else:
+                break
+        else:
+            break
+
+def heapsort(lista):
+    for j in range((len(lista)-2) // 2, -1, -1):
+        shiftDown(lista, j, len(lista))
+    for end in range(len(lista) - 1, 0, -1):
+        swap(lista, 0, end)
+        shiftDown(lista, 0, end)
+
+    return lista
+
 def main():
     # wyniki - słownik, który będzie zawierał pomiary czasu poszczególnych algorytmów (pary: nazwa - czas)
     wyniki = {}
@@ -109,8 +152,15 @@ def main():
     print()
     print(posortowane)
 
+    listaHeap = listaLiczb.copy()
+    print("Sortowanie kopcowe")
+    czas_start = datetime.datetime.now()
+    posortowane = heapsort(listaHeap)
+    czas_stop = datetime.datetime.now()
+    wyniki['Sortowanie kopcowe'] = czas_stop - czas_start
 
-
+    print()
+    print(posortowane)
     # wyświetlenie wyników - na razie dirty
     print(wyniki)
     return
