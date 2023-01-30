@@ -5,8 +5,8 @@ import random, datetime
 # ZAKRES_MIN i ZAKRES_MAX oznaczają przedział z którego losujemy
 # ILE_LICZB oznacza ilość liczb, którą losujemy
 ZAKRES_MIN = 0
-ZAKRES_MAX = 1000
-ILE_LICZB = 1000
+ZAKRES_MAX = 100
+ILE_LICZB = 10000
 
 # generowanie tablicy (listy) liczb losowych w zadanym zakresie i ilości
 def generujLiczbyLosowe():
@@ -68,49 +68,6 @@ def quickSort(listaLiczb, lewy_indeks, prawy_indeks):
 
     return listaLiczb
 
-# Piter
-# Heap sort
-def swap(lista, i, j):
-    lista[i], lista[j] = lista[j], lista[i]
-    pass
-
-def shiftDown(lista, i, upper):
-    while True:
-        l, r = i*2+1, i*2+2
-        if max(l, r) < upper:
-            # 2 children
-            if lista[i] >= max(lista[l], lista[r]):
-                break
-            elif lista[l] > lista[r]:
-                swap(lista, i, l)
-                i = l
-            else:
-                swap(lista, i, r)
-                i = r
-        elif l < upper:
-            if lista[l] > lista[i]:
-                swap(lista, i, l)
-                i = l
-            else:
-                break
-        elif r < upper:
-            if lista[r] > lista[i]:
-                swap(lista, i, r)
-                i = r
-            else:
-                break
-        else:
-            break
-
-def heapsort(lista):
-    for j in range((len(lista)-2) // 2, -1, -1):
-        shiftDown(lista, j, len(lista))
-    for end in range(len(lista) - 1, 0, -1):
-        swap(lista, 0, end)
-        shiftDown(lista, 0, end)
-
-    return lista
-
 def main():
     # wyniki - słownik, który będzie zawierał pomiary czasu poszczególnych algorytmów (pary: nazwa - czas)
     wyniki = {}
@@ -119,27 +76,16 @@ def main():
     listaLiczb = generujLiczbyLosowe()
     print(listaLiczb)
 
-    # wbudowana w pythona metoda sorted
-    listaSorted = listaLiczb.copy()
-    print("Sortowanie ""sorted")
+    # sortowanie bąbelkowe
+    listaBubel = listaLiczb.copy()
+    print("Sortowanie bąbelkowe")
     czas_start = datetime.datetime.now()
-    posortowane = sorted(listaSorted)
+    posortowane = bubelSort(listaBubel)
     czas_stop = datetime.datetime.now()
-    wyniki['Sorted'] = czas_stop - czas_start
+    wyniki['Sortowanie bąbelkowe'] = czas_stop - czas_start
 
     print()
     print(posortowane)
-
-    # sortowanie bąbelkowe
-    # listaBubel = listaLiczb.copy()
-    # print("Sortowanie bąbelkowe")
-    # czas_start = datetime.datetime.now()
-    # posortowane = bubelSort(listaBubel)
-    # czas_stop = datetime.datetime.now()
-    # wyniki['Sortowanie bąbelkowe'] = czas_stop - czas_start
-    #
-    # print()
-    # print(posortowane)
 
     # sortowanie szybkie
     listaQuick = listaLiczb.copy()
@@ -152,15 +98,17 @@ def main():
     print()
     print(posortowane)
 
-    listaHeap = listaLiczb.copy()
-    print("Sortowanie kopcowe")
+    # wbudowana w pythona metoda sorted
+    listaSorted = listaLiczb.copy()
+    print("Sortowanie ""sorted")
     czas_start = datetime.datetime.now()
-    posortowane = heapsort(listaHeap)
+    posortowane = sorted(listaSorted)
     czas_stop = datetime.datetime.now()
-    wyniki['Sortowanie kopcowe'] = czas_stop - czas_start
+    wyniki['Sorted'] = czas_stop - czas_start
 
     print()
     print(posortowane)
+
     # wyświetlenie wyników - na razie dirty
     print(wyniki)
     return
