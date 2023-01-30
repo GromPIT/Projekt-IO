@@ -34,7 +34,48 @@ def bubelSort(listaLiczb):
 
     return listaLiczb
 
+# Piter
+# Heap sort
+def swap(lista, i, j):
+    lista[i], lista[j] = lista[j], lista[i]
+    pass
 
+def shiftDown(lista, i, upper):
+    while True:
+        l, r = i*2+1, i*2+2
+        if max(l, r) < upper:
+            # 2 children
+            if lista[i] >= max(lista[l], lista[r]):
+                break
+            elif lista[l] > lista[r]:
+                swap(lista, i, l)
+                i = l
+            else:
+                swap(lista, i, r)
+                i = r
+        elif l < upper:
+            if lista[l] > lista[i]:
+                swap(lista, i, l)
+                i = l
+            else:
+                break
+        elif r < upper:
+            if lista[r] > lista[i]:
+                swap(lista, i, r)
+                i = r
+            else:
+                break
+        else:
+            break
+
+def heapSort(lista):
+    for j in range((len(lista)-2) // 2, -1, -1):
+        shiftDown(lista, j, len(lista))
+    for end in range(len(lista) - 1, 0, -1):
+        swap(lista, 0, end)
+        shiftDown(lista, 0, end)
+
+    return lista
 
 def quickSort(listaLiczb, lewy_indeks, prawy_indeks):
     i = lewy_indeks
@@ -97,6 +138,18 @@ def main():
 
     print()
     print(posortowane)
+
+    # sortowanie kopcowe
+    listaQuick = listaLiczb.copy()
+    print("Sortowanie kopcowe")
+    czas_start = datetime.datetime.now()
+    posortowane = heapSort(listaQuick)
+    czas_stop = datetime.datetime.now()
+    wyniki['Sortowanie kopcowe'] = czas_stop - czas_start
+
+    print()
+    print(posortowane)
+
 
     # wbudowana w pythona metoda sorted
     listaSorted = listaLiczb.copy()
