@@ -5,8 +5,8 @@ import random, datetime
 # ZAKRES_MIN i ZAKRES_MAX oznaczają przedział z którego losujemy
 # ILE_LICZB oznacza ilość liczb, którą losujemy
 ZAKRES_MIN = 0
-ZAKRES_MAX = 100
-ILE_LICZB = 10000
+ZAKRES_MAX = 10000000
+ILE_LICZB = 100000
 
 # generowanie tablicy (listy) liczb losowych w zadanym zakresie i ilości
 def generujLiczbyLosowe():
@@ -76,16 +76,27 @@ def main():
     listaLiczb = generujLiczbyLosowe()
     print(listaLiczb)
 
-    # sortowanie bąbelkowe
-    listaBubel = listaLiczb.copy()
-    print("Sortowanie bąbelkowe")
+    # wbudowana w pythona metoda sorted
+    listaSorted = listaLiczb.copy()
+    print("Sortowanie ""sorted")
     czas_start = datetime.datetime.now()
-    posortowane = bubelSort(listaBubel)
+    posortowane = sorted(listaSorted)
     czas_stop = datetime.datetime.now()
-    wyniki['Sortowanie bąbelkowe'] = czas_stop - czas_start
+    wyniki['Sorted'] = czas_stop - czas_start
 
     print()
     print(posortowane)
+
+    # sortowanie bąbelkowe
+    # listaBubel = listaLiczb.copy()
+    # print("Sortowanie bąbelkowe")
+    # czas_start = datetime.datetime.now()
+    # posortowane = bubelSort(listaBubel)
+    # czas_stop = datetime.datetime.now()
+    # wyniki['Sortowanie bąbelkowe'] = czas_stop - czas_start
+    #
+    # print()
+    # print(posortowane)
 
     # sortowanie szybkie
     listaQuick = listaLiczb.copy()
@@ -98,16 +109,7 @@ def main():
     print()
     print(posortowane)
 
-    # wbudowana w pythona metoda sorted
-    listaSorted = listaLiczb.copy()
-    print("Sortowanie ""sorted")
-    czas_start = datetime.datetime.now()
-    posortowane = sorted(listaSorted)
-    czas_stop = datetime.datetime.now()
-    wyniki['Sorted'] = czas_stop - czas_start
 
-    print()
-    print(posortowane)
 
     # wyświetlenie wyników - na razie dirty
     print(wyniki)
