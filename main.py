@@ -42,6 +42,20 @@ def bubelSort(listaLiczb):
 
     return listaLiczb
 
+def bubelSort_v2(listaLiczb):
+    zamiana = True
+    j = 0
+    while (zamiana):
+        # optymistycznie
+        zamiana = False
+        for i in range(len(listaLiczb)-1-j):
+            if listaLiczb[i] > listaLiczb[i+1]:
+                zamiana = True
+                swap(listaLiczb, i, i+1)
+        j += 1
+
+    return listaLiczb
+
 # Piter
 # Heap sort
 
@@ -153,11 +167,11 @@ def sortowanie(min, max, count, repeat):
     print()
     for i in range(repeat):
         listaLiczb = generujLiczbyLosowe(min, max, count)
-        print(f"Iteracja nr {i}: wygenerowano liczby \u007b")
+        print(f"Iteracja nr {i+1}: wygenerowano liczby \u007b")
         # print(f"{listaLiczb}")
 
         # wbudowana w pythona metoda sorted - JB
-        print("\tSortowanie wbudowaną metodą \"sorted\"...", end='')
+        print("\tSortowanie wbudowaną metodą \"sorted\"... ", end='')
         czas_start = datetime.datetime.now()
         posortowane = sorted(listaLiczb.copy())
         czas_stop = datetime.datetime.now()
@@ -169,7 +183,7 @@ def sortowanie(min, max, count, repeat):
         # print(f"Posortowane :\n{posortowane}")
 
         # sortowanie bąbelkowe - PMG
-        print("\tSortowanie bąbelkowe.... ", end='')
+        print("\tSortowanie bąbelkowe v1... ", end='')
         czas_start = datetime.datetime.now()
         posortowane = bubelSort(listaLiczb.copy())
         czas_stop = datetime.datetime.now()
@@ -177,6 +191,18 @@ def sortowanie(min, max, count, repeat):
             wyniki['Sortowanie bąbelkowe'] += czas_stop - czas_start
         else:
             wyniki['Sortowanie bąbelkowe'] = czas_stop - czas_start
+        print("DONE!")
+        # print(f"Posortowane :\n{posortowane}")
+
+        # sortowanie bąbelkowe v2 - PMG
+        print("\tSortowanie bąbelkowe v2... ", end='')
+        czas_start = datetime.datetime.now()
+        posortowane = bubelSort_v2(listaLiczb.copy())
+        czas_stop = datetime.datetime.now()
+        if 'Sortowanie bąbelkowe v2' in dict(wyniki):
+            wyniki['Sortowanie bąbelkowe v2'] += czas_stop - czas_start
+        else:
+            wyniki['Sortowanie bąbelkowe v2'] = czas_stop - czas_start
         print("DONE!")
         # print(f"Posortowane :\n{posortowane}")
 
@@ -209,6 +235,7 @@ def sortowanie(min, max, count, repeat):
 
     wyniki['Sorted'] /= repeat
     wyniki['Sortowanie bąbelkowe'] /= repeat
+    wyniki['Sortowanie bąbelkowe v2'] /= repeat
     wyniki['Sortowanie kopcowe'] /= repeat
     wyniki['Sortowanie szybkie'] /= repeat
 
