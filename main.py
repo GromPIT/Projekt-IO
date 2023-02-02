@@ -1,4 +1,4 @@
-import random, datetime
+import random, datetime, re
 
 # komentarz Marysi
 # komentarz
@@ -132,9 +132,28 @@ def winieta():
 
     return
 
+def pobierzLiczbeCalkowita(text):
+    isOk = False
+
+    while not isOk:
+        liczba = input(text)
+        reg = re.compile("^[0-9]*$")
+        if not reg.match(liczba):
+            print("Wprowadzono niepoprawną liczbę. Spróbuj ponownie\n")
+        else:
+            isOk = True
+
+    return liczba
+
 def main():
 
     winieta()
+
+    min = pobierzLiczbeCalkowita("Podaj dolny zakres tablicy: ")
+    max = pobierzLiczbeCalkowita("Podaj górny zakres tablicy: ")
+    count = pobierzLiczbeCalkowita("Podaj ilość liczb do losowania: ")
+    repeat = pobierzLiczbeCalkowita("Podaj ilość powtórzeń : ")
+
     # wyniki - słownik, który będzie zawierał pomiary czasu poszczególnych algorytmów (pary: nazwa - czas)
     wyniki = {}
 
