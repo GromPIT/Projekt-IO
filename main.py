@@ -112,7 +112,29 @@ def quickSort(listaLiczb, lewy_indeks, prawy_indeks):
 
     return listaLiczb
 
+def winieta():
+    print("""
+                    *---------------------------------------------------*
+                    |  PROGRAM: Porównanie metod sortowania wersja 1.0  |
+                    *---------------------------------------------------*
+                    |                     Autorzy :                     |
+                    |                Piotr M. Garczyński                |
+                    |                   Jacek Borowski                  |
+                    |                   Maria Orzeszko                  |
+                    *---------------------------------------------------*
+                """)
+    print("------------------------------------------------------------------------")
+    print("OPIS:")
+    print("\nProgram generuje tablicę liczb losowych, a następnie sortuje ją według")
+    print("kilku algorytmów sortowania, czynność powtarzana jest zadaną ilość razy, ")
+    print("a na końcu wyświetlany jest uśredniony wynik czasu wykonania")
+    print("------------------------------------------------------------------------")
+
+    return
+
 def main():
+
+    winieta()
     # wyniki - słownik, który będzie zawierał pomiary czasu poszczególnych algorytmów (pary: nazwa - czas)
     wyniki = {}
 
