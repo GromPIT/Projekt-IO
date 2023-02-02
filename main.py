@@ -99,6 +99,20 @@ def grzebienSort(listaLiczb):
             i += 1
     return listaLiczb
 
+# insertSort
+def insertSort(listaLiczb):
+    ile = len(listaLiczb)
+
+    for j in range(ile-2, -1, -1):
+        pom = listaLiczb[j]
+        i = j + 1
+        while i < ile and pom > listaLiczb[i]:
+            listaLiczb[i - 1] = listaLiczb[i]
+            i += 1
+        listaLiczb[i-1] = pom
+
+    return listaLiczb
+
 # Piter
 # Heap sort
 
@@ -271,6 +285,17 @@ def sortowanie(min, max, count, repeat):
             wyniki['Sortowanie grzebieniowe'] = czas_stop - czas_start
         print("DONE!")
 
+        # sortowanie przez wstawianie - PMG
+        print("\tSortowanie przez wstawianie... ", end='')
+        czas_start = datetime.datetime.now()
+        posortowane = grzebienSort(listaLiczb.copy())
+        czas_stop = datetime.datetime.now()
+        if 'Sortowanie przez wstawianie' in dict(wyniki):
+            wyniki['Sortowanie przez wstawianie'] += czas_stop - czas_start
+        else:
+            wyniki['Sortowanie przez wstawianie'] = czas_stop - czas_start
+        print("DONE!")
+
         # sortowanie szybkie - PMG
         print("\tSortowanie szybkie... ", end='')
         czas_start = datetime.datetime.now()
@@ -303,6 +328,7 @@ def sortowanie(min, max, count, repeat):
     wyniki['Sortowanie bąbelkowe v2'] /= repeat
     wyniki['Sortowanie koktajlowe'] /= repeat
     wyniki['Sortowanie grzebieniowe'] /= repeat
+    wyniki['Sortowanie przez wstawianie'] /= repeat
     wyniki['Sortowanie kopcowe'] /= repeat
     wyniki['Sortowanie szybkie'] /= repeat
 
@@ -315,13 +341,23 @@ def sortowanie(min, max, count, repeat):
 def main():
 
     winieta()
-
     min = pobierzLiczbeCalkowita("Podaj dolny zakres tablicy: ")
     max = pobierzLiczbeCalkowita("Podaj górny zakres tablicy: ")
-    count = pobierzLiczbeCalkowita("Podaj ilość liczb do losowania: ")
-    repeat = pobierzLiczbeCalkowita("Podaj ilość powtórzeń : ")
-
+    count = pobierzLiczbeCalkowita("Podaj ilość liczb do losowania (sensowna czasowo ilość 10 000): ")
+    repeat = pobierzLiczbeCalkowita("Podaj ilość powtórzeń (zalecane przynajmniej 5): ")
     sortowanie(int(min), int(max), int(count), int(repeat))
+
+    # for i in range(10, -1, -1):
+    #     print(i)
+    #
+    # min = 0
+    # max = 10
+    # count = 10
+    #
+    # lista = generujLiczbyLosowe(min, max, count)
+    # print(lista)
+    # sort = insertSort(lista)
+    # print(sort)
 
     # listaLiczb = generujLiczbyLosowe()
     #
