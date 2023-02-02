@@ -232,10 +232,15 @@ def sortowanie(min, max, count, repeat):
         czas_start = datetime.datetime.now()
         posortowane = sorted(listaLiczb.copy())
         czas_stop = datetime.datetime.now()
+        czas = czas_stop - czas_start
         if 'Sorted' in dict(wyniki):
-            wyniki['Sorted'] += czas_stop - czas_start
+            wyniki['Sorted']['SUMA'] += czas
+            if czas > wyniki['Sorted']['MAX']:
+                wyniki['Sorted']['MAX'] = czas
+            if czas < wyniki['Sorted']['MIN']:
+                wyniki['Sorted']['MIN'] = czas
         else:
-            wyniki['Sorted'] = czas_stop - czas_start
+            wyniki['Sorted'] = {'SUMA': czas, 'AVG': None, 'MIN':czas, 'MAX':czas}
         print("DONE!")
         # print(f"Posortowane :\n{posortowane}")
 
@@ -244,10 +249,15 @@ def sortowanie(min, max, count, repeat):
         czas_start = datetime.datetime.now()
         posortowane = bubelSort(listaLiczb.copy())
         czas_stop = datetime.datetime.now()
+        czas = czas_stop - czas_start
         if 'Sortowanie bąbelkowe' in dict(wyniki):
-            wyniki['Sortowanie bąbelkowe'] += czas_stop - czas_start
+            wyniki['Sortowanie bąbelkowe']['SUMA'] += czas
+            if czas > wyniki['Sortowanie bąbelkowe']['MAX']:
+                wyniki['Sortowanie bąbelkowe']['MAX'] = czas
+            if czas < wyniki['Sortowanie bąbelkowe']['MIN']:
+                wyniki['Sortowanie bąbelkowe']['MIN'] = czas
         else:
-            wyniki['Sortowanie bąbelkowe'] = czas_stop - czas_start
+            wyniki['Sortowanie bąbelkowe'] = {'SUMA': czas, 'AVG': None, 'MIN': czas, 'MAX': czas}
         print("DONE!")
         # print(f"Posortowane :\n{posortowane}")
 
@@ -256,10 +266,15 @@ def sortowanie(min, max, count, repeat):
         czas_start = datetime.datetime.now()
         posortowane = bubelSort_v2(listaLiczb.copy())
         czas_stop = datetime.datetime.now()
+        czas = czas_stop - czas_start
         if 'Sortowanie bąbelkowe v2' in dict(wyniki):
-            wyniki['Sortowanie bąbelkowe v2'] += czas_stop - czas_start
+            wyniki['Sortowanie bąbelkowe v2']['SUMA'] += czas
+            if czas > wyniki['Sortowanie bąbelkowe v2']['MAX']:
+                wyniki['Sortowanie bąbelkowe v2']['MAX'] = czas
+            if czas < wyniki['Sortowanie bąbelkowe v2']['MIN']:
+                wyniki['Sortowanie bąbelkowe v2']['MIN'] = czas
         else:
-            wyniki['Sortowanie bąbelkowe v2'] = czas_stop - czas_start
+            wyniki['Sortowanie bąbelkowe v2'] = {'SUMA': czas, 'AVG': None, 'MIN': czas, 'MAX': czas}
         print("DONE!")
         # print(f"Posortowane :\n{posortowane}")
 
@@ -268,10 +283,15 @@ def sortowanie(min, max, count, repeat):
         czas_start = datetime.datetime.now()
         posortowane = koktajlSort(listaLiczb.copy())
         czas_stop = datetime.datetime.now()
+        czas = czas_stop - czas_start
         if 'Sortowanie koktajlowe' in dict(wyniki):
-            wyniki['Sortowanie koktajlowe'] += czas_stop - czas_start
+            wyniki['Sortowanie koktajlowe']['SUMA'] += czas
+            if czas > wyniki['Sortowanie koktajlowe']['MAX']:
+                wyniki['Sortowanie koktajlowe']['MAX'] = czas
+            if czas < wyniki['Sortowanie koktajlowe']['MIN']:
+                wyniki['Sortowanie koktajlowe']['MIN'] = czas
         else:
-            wyniki['Sortowanie koktajlowe'] = czas_stop - czas_start
+            wyniki['Sortowanie koktajlowe'] = {'SUMA': czas, 'AVG': None, 'MIN': czas, 'MAX': czas}
         print("DONE!")
 
         # sortowanie grzebieniowe  - PMG
@@ -279,10 +299,15 @@ def sortowanie(min, max, count, repeat):
         czas_start = datetime.datetime.now()
         posortowane = grzebienSort(listaLiczb.copy())
         czas_stop = datetime.datetime.now()
+        czas = czas_stop - czas_start
         if 'Sortowanie grzebieniowe' in dict(wyniki):
-            wyniki['Sortowanie grzebieniowe'] += czas_stop - czas_start
+            wyniki['Sortowanie grzebieniowe']['SUMA'] += czas
+            if czas > wyniki['Sortowanie grzebieniowe']['MAX']:
+                wyniki['Sortowanie grzebieniowe']['MAX'] = czas
+            if czas < wyniki['Sortowanie grzebieniowe']['MIN']:
+                wyniki['Sortowanie grzebieniowe']['MIN'] = czas
         else:
-            wyniki['Sortowanie grzebieniowe'] = czas_stop - czas_start
+            wyniki['Sortowanie grzebieniowe'] = {'SUMA': czas, 'AVG': None, 'MIN': czas, 'MAX': czas}
         print("DONE!")
 
         # sortowanie przez wstawianie - PMG
@@ -290,10 +315,15 @@ def sortowanie(min, max, count, repeat):
         czas_start = datetime.datetime.now()
         posortowane = grzebienSort(listaLiczb.copy())
         czas_stop = datetime.datetime.now()
+        czas = czas_stop - czas_start
         if 'Sortowanie przez wstawianie' in dict(wyniki):
-            wyniki['Sortowanie przez wstawianie'] += czas_stop - czas_start
+            wyniki['Sortowanie przez wstawianie']['SUMA'] += czas
+            if czas > wyniki['Sortowanie przez wstawianie']['MAX']:
+                wyniki['Sortowanie przez wstawianie']['MAX'] = czas
+            if czas < wyniki['Sortowanie przez wstawianie']['MIN']:
+                wyniki['Sortowanie przez wstawianie']['MIN'] = czas
         else:
-            wyniki['Sortowanie przez wstawianie'] = czas_stop - czas_start
+            wyniki['Sortowanie przez wstawianie'] = {'SUMA': czas, 'AVG': None, 'MIN': czas, 'MAX': czas}
         print("DONE!")
 
         # sortowanie szybkie - PMG
@@ -301,10 +331,15 @@ def sortowanie(min, max, count, repeat):
         czas_start = datetime.datetime.now()
         posortowane = quickSort(listaLiczb.copy(), 0, len(listaLiczb) - 1)
         czas_stop = datetime.datetime.now()
+        czas = czas_stop - czas_start
         if 'Sortowanie szybkie' in dict(wyniki):
-            wyniki['Sortowanie szybkie'] += czas_stop - czas_start
+            wyniki['Sortowanie szybkie']['SUMA'] += czas
+            if czas > wyniki['Sortowanie szybkie']['MAX']:
+                wyniki['Sortowanie szybkie']['MAX'] = czas
+            if czas < wyniki['Sortowanie szybkie']['MIN']:
+                wyniki['Sortowanie szybkie']['MIN'] = czas
         else:
-            wyniki['Sortowanie szybkie'] = czas_stop - czas_start
+            wyniki['Sortowanie szybkie'] = {'SUMA': czas, 'AVG': None, 'MIN': czas, 'MAX': czas}
         print("DONE!")
         # print(f"Posortowane :\n{posortowane}")
 
@@ -313,27 +348,31 @@ def sortowanie(min, max, count, repeat):
         czas_start = datetime.datetime.now()
         posortowane = heapSort(listaLiczb.copy())
         czas_stop = datetime.datetime.now()
+        czas = czas_stop - czas_start
         if 'Sortowanie kopcowe' in dict(wyniki):
-            wyniki['Sortowanie kopcowe'] += czas_stop - czas_start
+            wyniki['Sortowanie kopcowe']['SUMA'] += czas
+            if czas > wyniki['Sortowanie kopcowe']['MAX']:
+                wyniki['Sortowanie kopcowe']['MAX'] = czas
+            if czas < wyniki['Sortowanie kopcowe']['MIN']:
+                wyniki['Sortowanie kopcowe']['MIN'] = czas
         else:
-            wyniki['Sortowanie kopcowe'] = czas_stop - czas_start
+            wyniki['Sortowanie kopcowe'] = {'SUMA': czas, 'AVG': None, 'MIN': czas, 'MAX': czas}
         print("DONE!")
         # print(f"Posortowane :\n{posortowane}")
         print("}\n")
 
     print(wyniki)
 
-    wyniki['Sorted'] /= repeat
-    wyniki['Sortowanie bąbelkowe'] /= repeat
-    wyniki['Sortowanie bąbelkowe v2'] /= repeat
-    wyniki['Sortowanie koktajlowe'] /= repeat
-    wyniki['Sortowanie grzebieniowe'] /= repeat
-    wyniki['Sortowanie przez wstawianie'] /= repeat
-    wyniki['Sortowanie kopcowe'] /= repeat
-    wyniki['Sortowanie szybkie'] /= repeat
+    wyniki['Sorted']['AVG'] = wyniki['Sorted']['SUMA'] / repeat
+    wyniki['Sortowanie bąbelkowe']['AVG'] = wyniki['Sortowanie bąbelkowe']['SUMA'] / repeat
+    wyniki['Sortowanie bąbelkowe v2']['AVG'] = wyniki['Sortowanie bąbelkowe v2']['SUMA'] / repeat
+    wyniki['Sortowanie koktajlowe']['AVG'] = wyniki['Sortowanie koktajlowe']['SUMA'] / repeat
+    wyniki['Sortowanie grzebieniowe']['AVG'] = wyniki['Sortowanie grzebieniowe']['SUMA'] / repeat
+    wyniki['Sortowanie przez wstawianie']['AVG'] = wyniki['Sortowanie przez wstawianie']['SUMA'] / repeat
+    wyniki['Sortowanie kopcowe']['AVG'] = wyniki['Sortowanie kopcowe']['SUMA'] / repeat
+    wyniki['Sortowanie szybkie']['AVG'] = wyniki['Sortowanie szybkie']['SUMA'] / repeat
 
     print(wyniki)
-
 
     return
 
