@@ -6,7 +6,13 @@ import random, datetime
 # ILE_LICZB oznacza ilość liczb, którą losujemy
 ZAKRES_MIN = 0
 ZAKRES_MAX = 100
-ILE_LICZB = 10000
+ILE_LICZB = 10
+
+# zamiana liczb
+def swap(lista, i, j):
+    lista[i], lista[j] = lista[j], lista[i]
+    return
+
 
 # generowanie tablicy (listy) liczb losowych w zadanym zakresie i ilości
 def generujLiczbyLosowe():
@@ -30,15 +36,12 @@ def bubelSort(listaLiczb):
         for i in range(len(listaLiczb)-1):
             if listaLiczb[i] > listaLiczb[i+1]:
                 zamiana = True
-                listaLiczb[i], listaLiczb[i+1] = listaLiczb[i+1], listaLiczb[i]
+                swap(listaLiczb, i, i+1)
 
     return listaLiczb
 
 # Piter
 # Heap sort
-def swap(lista, i, j):
-    lista[i], lista[j] = lista[j], lista[i]
-    pass
 
 def shiftDown(lista, i, upper):
     while True:
@@ -96,7 +99,7 @@ def quickSort(listaLiczb, lewy_indeks, prawy_indeks):
         # warunek wyjścia przy jednoelementowej tablicy po podziale
         if i <= j:
             # zamień liczby
-            listaLiczb[i], listaLiczb[j] = listaLiczb[j], listaLiczb[i]
+            swap(listaLiczb, i, j)
             i += 1
             j -= 1
         else:
