@@ -193,7 +193,7 @@ def sortowanie(min, max, count, repeat):
         # print(f"Posortowane :\n{posortowane}")
 
         # sortowanie kopcowe - PMG
-        print("\tSortowanie kopcowe.... ", end='')
+        print("\tSortowanie kopcowe... ", end='')
         czas_start = datetime.datetime.now()
         posortowane = heapSort(listaLiczb.copy())
         czas_stop = datetime.datetime.now()
@@ -204,7 +204,16 @@ def sortowanie(min, max, count, repeat):
         print("DONE!")
         # print(f"Posortowane :\n{posortowane}")
         print("}\n")
+
     print(wyniki)
+
+    wyniki['Sorted'] /= repeat
+    wyniki['Sortowanie bąbelkowe'] /= repeat
+    wyniki['Sortowanie kopcowe'] /= repeat
+    wyniki['Sortowanie szybkie'] /= repeat
+
+    print(wyniki)
+
 
     return
 
