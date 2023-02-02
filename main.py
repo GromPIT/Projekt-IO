@@ -3,10 +3,12 @@ import random, datetime, re
 # komentarz Marysi
 # komentarz
 # ZAKRES_MIN i ZAKRES_MAX oznaczają przedział z którego losujemy
+
+# zastąpione funkcją
 # ILE_LICZB oznacza ilość liczb, którą losujemy
-ZAKRES_MIN = 0
-ZAKRES_MAX = 100
-ILE_LICZB = 10
+# ZAKRES_MIN = 0
+# ZAKRES_MAX = 100
+# ILE_LICZB = 10
 
 # zamiana liczb
 def swap(lista, i, j):
@@ -15,11 +17,11 @@ def swap(lista, i, j):
 
 
 # generowanie tablicy (listy) liczb losowych w zadanym zakresie i ilości
-def generujLiczbyLosowe():
+def generujLiczbyLosowe(min, max, count):
     listaLiczb = []
 
-    for i in range(ILE_LICZB):
-        listaLiczb.append(random.randint(ZAKRES_MIN, ZAKRES_MAX))
+    for i in range(count):
+        listaLiczb.append(random.randint(min, max))
 
     return listaLiczb
 
@@ -145,6 +147,68 @@ def pobierzLiczbeCalkowita(text):
 
     return liczba
 
+def sortowanie(min, max, count, repeat):
+    # wyniki - słownik, który będzie zawierał pomiary czasu poszczególnych algorytmów (pary: nazwa - czas)
+    wyniki = {}
+    print()
+    for i in range(repeat):
+        listaLiczb = generujLiczbyLosowe(min, max, count)
+        print(f"Iteracja nr {i}: wygenerowano liczby \u007b")
+        # print(f"{listaLiczb}")
+
+        # wbudowana w pythona metoda sorted - JB
+        print("\tSortowanie wbudowaną metodą \"sorted\"...", end='')
+        czas_start = datetime.datetime.now()
+        posortowane = sorted(listaLiczb.copy())
+        czas_stop = datetime.datetime.now()
+        if 'Sorted' in dict(wyniki):
+            wyniki['Sorted'] += czas_stop - czas_start
+        else:
+            wyniki['Sorted'] = czas_stop - czas_start
+        print("DONE!")
+        # print(f"Posortowane :\n{posortowane}")
+
+        # sortowanie bąbelkowe - PMG
+        print("\tSortowanie bąbelkowe.... ", end='')
+        czas_start = datetime.datetime.now()
+        posortowane = bubelSort(listaLiczb.copy())
+        czas_stop = datetime.datetime.now()
+        if 'Sortowanie bąbelkowe' in dict(wyniki):
+            wyniki['Sortowanie bąbelkowe'] += czas_stop - czas_start
+        else:
+            wyniki['Sortowanie bąbelkowe'] = czas_stop - czas_start
+        print("DONE!")
+        # print(f"Posortowane :\n{posortowane}")
+
+        # sortowanie szybkie - PMG
+        print("\tSortowanie szybkie... ", end='')
+        czas_start = datetime.datetime.now()
+        posortowane = quickSort(listaLiczb.copy(), 0, len(listaLiczb) - 1)
+        czas_stop = datetime.datetime.now()
+        if 'Sortowanie szybkie' in dict(wyniki):
+            wyniki['Sortowanie szybkie'] += czas_stop - czas_start
+        else:
+            wyniki['Sortowanie szybkie'] = czas_stop - czas_start
+        print("DONE!")
+        # print(f"Posortowane :\n{posortowane}")
+
+        # sortowanie kopcowe - PMG
+        print("\tSortowanie kopcowe.... ", end='')
+        czas_start = datetime.datetime.now()
+        posortowane = heapSort(listaLiczb.copy())
+        czas_stop = datetime.datetime.now()
+        if 'Sortowanie kopcowe' in dict(wyniki):
+            wyniki['Sortowanie kopcowe'] += czas_stop - czas_start
+        else:
+            wyniki['Sortowanie kopcowe'] = czas_stop - czas_start
+        print("DONE!")
+        # print(f"Posortowane :\n{posortowane}")
+        print("}\n")
+    print(wyniki)
+
+    return
+
+
 def main():
 
     winieta()
@@ -154,60 +218,42 @@ def main():
     count = pobierzLiczbeCalkowita("Podaj ilość liczb do losowania: ")
     repeat = pobierzLiczbeCalkowita("Podaj ilość powtórzeń : ")
 
-    # wyniki - słownik, który będzie zawierał pomiary czasu poszczególnych algorytmów (pary: nazwa - czas)
-    wyniki = {}
+    sortowanie(int(min), int(max), int(count), int(repeat))
 
 
-    listaLiczb = generujLiczbyLosowe()
-    print(listaLiczb)
 
-    # sortowanie bąbelkowe
-    listaBubel = listaLiczb.copy()
-    print("Sortowanie bąbelkowe")
-    czas_start = datetime.datetime.now()
-    posortowane = bubelSort(listaBubel)
-    czas_stop = datetime.datetime.now()
-    wyniki['Sortowanie bąbelkowe'] = czas_stop - czas_start
+    # listaLiczb = generujLiczbyLosowe()
+    #
+    #
 
-    print()
-    print(posortowane)
+    # print()
+    # print(posortowane)
+    #
 
-    # sortowanie szybkie
-    listaQuick = listaLiczb.copy()
-    print("Sortowanie szybkie")
-    czas_start = datetime.datetime.now()
-    posortowane = quickSort(listaQuick, 0, len(listaQuick) - 1)
-    czas_stop = datetime.datetime.now()
-    wyniki['Sortowanie szybkie'] = czas_stop - czas_start
+    #
+    # print()
+    # print(posortowane)
+    #
+    # # sortowanie kopcowe
 
-    print()
-    print(posortowane)
-
-    # sortowanie kopcowe
-    listaQuick = listaLiczb.copy()
-    print("Sortowanie kopcowe")
-    czas_start = datetime.datetime.now()
-    posortowane = heapSort(listaQuick)
-    czas_stop = datetime.datetime.now()
-    wyniki['Sortowanie kopcowe'] = czas_stop - czas_start
-
-    print()
-    print(posortowane)
-
-
-    # wbudowana w pythona metoda sorted
-    listaSorted = listaLiczb.copy()
-    print("Sortowanie ""sorted")
-    czas_start = datetime.datetime.now()
-    posortowane = sorted(listaSorted)
-    czas_stop = datetime.datetime.now()
-    wyniki['Sorted'] = czas_stop - czas_start
-
-    print()
-    print(posortowane)
-
-    # wyświetlenie wyników - na razie dirty
-    print(wyniki)
+    #
+    # print()
+    # print(posortowane)
+    #
+    #
+    # # wbudowana w pythona metoda sorted
+    # listaSorted = listaLiczb.copy()
+    # print("Sortowanie ""sorted")
+    # czas_start = datetime.datetime.now()
+    # posortowane = sorted(listaSorted)
+    # czas_stop = datetime.datetime.now()
+    # wyniki['Sorted'] = czas_stop - czas_start
+    #
+    # print()
+    # print(posortowane)
+    #
+    # # wyświetlenie wyników - na razie dirty
+    # print(wyniki)
     return
 
 if __name__ == "__main__":
