@@ -78,6 +78,26 @@ def koktajlSort(listaLiczb):
 
     return listaLiczb
 
+def grzebienSort(listaLiczb):
+    ile = rozpietosc = len(listaLiczb)
+    zamiana = True
+
+    while rozpietosc > 1 or zamiana:
+        rozpietosc = int(rozpietosc * 10 // 13)
+        # print("R:",rozpietosc)
+        if rozpietosc == 0:
+            rozpietosc = 1
+        zamiana = False
+        i = 0
+        while i + rozpietosc < ile:
+            # print(i + rozpietosc)
+
+            if listaLiczb[i] > listaLiczb[i + rozpietosc]:
+                swap(listaLiczb, i, i + rozpietosc)
+                zamiana = True
+            i += 1
+    return listaLiczb
+
 # Piter
 # Heap sort
 
@@ -239,6 +259,17 @@ def sortowanie(min, max, count, repeat):
             wyniki['Sortowanie koktajlowe'] = czas_stop - czas_start
         print("DONE!")
 
+        # sortowanie grzebieniowe  - PMG
+        print("\tSortowanie grzebieniowe... ", end='')
+        czas_start = datetime.datetime.now()
+        posortowane = grzebienSort(listaLiczb.copy())
+        czas_stop = datetime.datetime.now()
+        if 'Sortowanie grzebieniowe' in dict(wyniki):
+            wyniki['Sortowanie grzebieniowe'] += czas_stop - czas_start
+        else:
+            wyniki['Sortowanie grzebieniowe'] = czas_stop - czas_start
+        print("DONE!")
+
         # sortowanie szybkie - PMG
         print("\tSortowanie szybkie... ", end='')
         czas_start = datetime.datetime.now()
@@ -270,6 +301,7 @@ def sortowanie(min, max, count, repeat):
     wyniki['Sortowanie bąbelkowe'] /= repeat
     wyniki['Sortowanie bąbelkowe v2'] /= repeat
     wyniki['Sortowanie koktajlowe'] /= repeat
+    wyniki['Sortowanie grzebieniowe'] /= repeat
     wyniki['Sortowanie kopcowe'] /= repeat
     wyniki['Sortowanie szybkie'] /= repeat
 
@@ -289,8 +321,6 @@ def main():
     repeat = pobierzLiczbeCalkowita("Podaj ilość powtórzeń : ")
 
     sortowanie(int(min), int(max), int(count), int(repeat))
-
-
 
     # listaLiczb = generujLiczbyLosowe()
     #
