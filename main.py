@@ -83,6 +83,7 @@ def grzebienSort(listaLiczb):
     zamiana = True
 
     while rozpietosc > 1 or zamiana:
+        # współczynnik rozpiętości 1,3 jest wyznaczony empirycznie przez twórców algorytmu
         rozpietosc = int(rozpietosc * 10 // 13)
         # print("R:",rozpietosc)
         if rozpietosc == 0:
