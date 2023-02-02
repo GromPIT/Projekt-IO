@@ -56,6 +56,28 @@ def bubelSort_v2(listaLiczb):
 
     return listaLiczb
 
+# sortowanie koktajlowe
+def koktajlSort(listaLiczb):
+    zamiana = True
+    min = 0
+    max = len(listaLiczb) - 1
+
+    while zamiana:
+        zamiana = False
+        for i in range(max):
+            if listaLiczb[i] > listaLiczb[i+1]:
+                swap(listaLiczb, i, i+1)
+                zamiana = True
+        max -= 1
+
+        for i in range(max, min, -1):
+            if listaLiczb[i] < listaLiczb[i -1]:
+                swap(listaLiczb, i-1, i)
+                zamiana = True
+        min += 1
+
+    return listaLiczb
+
 # Piter
 # Heap sort
 
@@ -206,6 +228,17 @@ def sortowanie(min, max, count, repeat):
         print("DONE!")
         # print(f"Posortowane :\n{posortowane}")
 
+        # sortowanie koktajlowe - PMG
+        print("\tSortowanie koktajlowe... ", end='')
+        czas_start = datetime.datetime.now()
+        posortowane = koktajlSort(listaLiczb.copy())
+        czas_stop = datetime.datetime.now()
+        if 'Sortowanie koktajlowe' in dict(wyniki):
+            wyniki['Sortowanie koktajlowe'] += czas_stop - czas_start
+        else:
+            wyniki['Sortowanie koktajlowe'] = czas_stop - czas_start
+        print("DONE!")
+
         # sortowanie szybkie - PMG
         print("\tSortowanie szybkie... ", end='')
         czas_start = datetime.datetime.now()
@@ -236,6 +269,7 @@ def sortowanie(min, max, count, repeat):
     wyniki['Sorted'] /= repeat
     wyniki['Sortowanie bąbelkowe'] /= repeat
     wyniki['Sortowanie bąbelkowe v2'] /= repeat
+    wyniki['Sortowanie koktajlowe'] /= repeat
     wyniki['Sortowanie kopcowe'] /= repeat
     wyniki['Sortowanie szybkie'] /= repeat
 
