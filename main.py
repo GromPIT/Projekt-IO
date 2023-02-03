@@ -26,8 +26,47 @@ def generujLiczbyLosowe(min, max, count):
     return listaLiczb
 
 # Merge-sort Marysia
-# ...
+def mergeSort(listaLiczb):
+    if len(listaLiczb) > 1:
+        mid = len(listaLiczb) // 2
+        left = listaLiczb[:mid]
+        right = listaLiczb[mid:]
 
+        # Rekurencyjne wywołanie każdej połowy
+        mergeSort(left)
+        mergeSort(right)
+
+        # Dwa iteratory do przechodzenia przez dwie połówki
+        i = 0
+        j = 0
+
+        # Iterator dla głównej listy
+        k = 0
+
+        while i < len(left) and j < len(right):
+            if left[i] <= right[j]:
+                # Wykorzystanie wartości z lewej połowy
+                listaLiczb[k] = left[i]
+                # Przesunięcie iteratora
+                i += 1
+            else:
+                listaLiczb[k] = right[j]
+                j += 1
+            # Przeniesienie na kolejne miejsce
+            k += 1
+
+        # Dla pozostałych wartości
+        while i < len(left):
+            listaLiczb[k] = left[i]
+            i += 1
+            k += 1
+
+        while j < len(right):
+            listaLiczb[k] = right[j]
+            j += 1
+            k += 1
+
+        return listaLiczb
 
 # sortowanie bąbelkowe
 def bubelSort(listaLiczb):
