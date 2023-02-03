@@ -579,13 +579,16 @@ def wypiszWyniki(wyniki):
 def main():
     winieta()
 
-    min = pobierzLiczbeCalkowita("Podaj dolny zakres tablicy: ")
-    max = pobierzLiczbeCalkowita("Podaj górny zakres tablicy: ")
-    count = pobierzLiczbeCalkowita("Podaj ilość liczb do losowania (sensowna czasowo ilość 10 000): ")
-    repeat = pobierzLiczbeCalkowita("Podaj ilość powtórzeń (zalecane przynajmniej 5): ")
+    min = int(pobierzLiczbeCalkowita("Podaj dolny zakres tablicy: "))
+    max = int(pobierzLiczbeCalkowita("Podaj górny zakres tablicy: "))
+    count = int(pobierzLiczbeCalkowita("Podaj ilość liczb do losowania (sensowna czasowo ilość 10 000): "))
+    repeat = int(pobierzLiczbeCalkowita("Podaj ilość powtórzeń (zalecane przynajmniej 5): "))
     disableSlow = spytaj("Czy wyłączyć wolne algorytmy (warto, jeśli ilość liczb jest > 10000) (t/n)? ")
 
-    sortowanie(int(min), int(max), int(count), int(repeat), disableSlow)
+    if max < min:
+        min, max = max, min
+
+    sortowanie(min, max, count, repeat, disableSlow)
 
     return
 
