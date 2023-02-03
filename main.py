@@ -460,10 +460,33 @@ def sortowanie(min, max, count, repeat, disableSlow):
         else:
             wyniki['Sortowanie kopcowe'] = {'SUMA': czas, 'AVG': None, 'MIN': czas, 'MAX': czas}
         print("DONE!")
+
+        # sortowanie przez scalanie - Mariadora
+        print("\tSortowanie przez scalanie... ", end='')
+        czas_start = datetime.datetime.now()
+        posortowane = mergeSort(listaLiczb.copy())
+        czas_stop = datetime.datetime.now()
+        czas = czas_stop - czas_start
+        if 'Sortowanie przez scalanie' in dict(wyniki):
+            wyniki['Sortowanie przez scalanie']['SUMA'] += czas
+            if czas > wyniki['Sortowanie przez scalanie']['MAX']:
+                wyniki['Sortowanie przez scalanie']['MAX'] = czas
+            if czas < wyniki['Sortowanie przez scalanie']['MIN']:
+                wyniki['Sortowanie przez scalanie']['MIN'] = czas
+        else:
+            wyniki['Sortowanie przez scalanie'] = {'SUMA': czas, 'AVG': None, 'MIN': czas, 'MAX': czas}
+        print("DONE!")
+
         # print(f"Posortowane :\n{posortowane}")
         print("}\n")
 
-    wyniki['Sorted']['AVG'] = wyniki['Sorted']['SUMA'] / repeat
+
+
+    try:
+        wyniki['Sorted']['AVG'] = wyniki['Sorted']['SUMA'] / repeat
+    except:
+        pass
+
     try:
         wyniki['Sortowanie bąbelkowe']['AVG'] = wyniki['Sortowanie bąbelkowe']['SUMA'] / repeat
     except:
@@ -501,6 +524,11 @@ def sortowanie(min, max, count, repeat, disableSlow):
 
     try:
         wyniki['Sortowanie szybkie']['AVG'] = wyniki['Sortowanie szybkie']['SUMA'] / repeat
+    except:
+        pass
+
+    try:
+        wyniki['Sortowanie przez scalanie']['AVG'] = wyniki['Sortowanie przez scalanie']['SUMA'] / repeat
     except:
         pass
 
@@ -549,20 +577,13 @@ def wypiszWyniki(wyniki):
     return
 
 def main():
-    lista = generujLiczbyLosowe(0, 100, 10)
-    print(lista)
-    sort = mergeSort(lista)
-    print(sort)
-
-    return
-
-
     winieta()
+
     min = pobierzLiczbeCalkowita("Podaj dolny zakres tablicy: ")
     max = pobierzLiczbeCalkowita("Podaj górny zakres tablicy: ")
     count = pobierzLiczbeCalkowita("Podaj ilość liczb do losowania (sensowna czasowo ilość 10 000): ")
     repeat = pobierzLiczbeCalkowita("Podaj ilość powtórzeń (zalecane przynajmniej 5): ")
-    disableSlow = spytaj("Czy wyłączyć wolne algorytmy (warto, jeśli ilość liczb jest > 10000) (t/n)?")
+    disableSlow = spytaj("Czy wyłączyć wolne algorytmy (warto, jeśli ilość liczb jest > 10000) (t/n)? ")
 
     sortowanie(int(min), int(max), int(count), int(repeat), disableSlow)
 
