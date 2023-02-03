@@ -65,8 +65,9 @@ def mergeSort(listaLiczb):
             listaLiczb[k] = right[j]
             j += 1
             k += 1
-
-        return listaLiczb
+    # PMG - było ok, tylko return za duże wcięcie -> było pod blokiem if, więc w przypadku
+    # tablicy jednoelementowej zwracało pustą wartość. Poza tym ok!
+    return listaLiczb
 
 # sortowanie bąbelkowe
 def bubelSort(listaLiczb):
@@ -454,6 +455,13 @@ def wypiszWyniki(wyniki):
     return
 
 def main():
+    lista = generujLiczbyLosowe(0, 100, 10)
+    print(lista)
+    sort = mergeSort(lista)
+    print(sort)
+
+    return
+
 
     winieta()
     min = pobierzLiczbeCalkowita("Podaj dolny zakres tablicy: ")
