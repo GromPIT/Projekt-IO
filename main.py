@@ -136,8 +136,7 @@ def shellSort(listaLiczb):
                 i += h
             listaLiczb[i - h] = pom
         h //= 3
-
-    print(listaLiczb)
+    # print(listaLiczb)
 
     return listaLiczb
 
@@ -247,7 +246,23 @@ def pobierzLiczbeCalkowita(text):
 
     return liczba
 
-def sortowanie(min, max, count, repeat):
+def spytaj(text):
+    isOk = False
+
+    while not isOk:
+        odpowiedz = input(text)
+        reg = re.compile("^[TtNn]")
+        if not reg.match(odpowiedz) or odpowiedz=='':
+            print("Niepoprawny wybór. Spróbuj ponownie\n")
+        else:
+            isOk = True
+
+    if odpowiedz in ['T','t']:
+        return True
+
+    return False
+
+def sortowanie(min, max, count, repeat, disableSlow):
     # wyniki - słownik, który będzie zawierał pomiary czasu poszczególnych algorytmów (pary: nazwa - czas)
     wyniki = {}
     print()
@@ -273,8 +288,7 @@ def sortowanie(min, max, count, repeat):
         print("DONE!")
         # print(f"Posortowane :\n{posortowane}")
 
-        if len(listaLiczb) <= 10000:
-
+        if not disableSlow:
             # sortowanie bąbelkowe - PMG
             print("\tSortowanie bąbelkowe v1... ", end='')
             czas_start = datetime.datetime.now()
@@ -325,6 +339,22 @@ def sortowanie(min, max, count, repeat):
                 wyniki['Sortowanie koktajlowe'] = {'SUMA': czas, 'AVG': None, 'MIN': czas, 'MAX': czas}
             print("DONE!")
 
+            # sortowanie przez wstawianie - PMG
+            print("\tSortowanie przez wstawianie... ", end='')
+            czas_start = datetime.datetime.now()
+            posortowane = insertSort(listaLiczb.copy())
+            czas_stop = datetime.datetime.now()
+            czas = czas_stop - czas_start
+            if 'Sortowanie przez wstawianie' in dict(wyniki):
+                wyniki['Sortowanie przez wstawianie']['SUMA'] += czas
+                if czas > wyniki['Sortowanie przez wstawianie']['MAX']:
+                    wyniki['Sortowanie przez wstawianie']['MAX'] = czas
+                if czas < wyniki['Sortowanie przez wstawianie']['MIN']:
+                    wyniki['Sortowanie przez wstawianie']['MIN'] = czas
+            else:
+                wyniki['Sortowanie przez wstawianie'] = {'SUMA': czas, 'AVG': None, 'MIN': czas, 'MAX': czas}
+            print("DONE!")
+
         # sortowanie grzebieniowe  - PMG
         print("\tSortowanie grzebieniowe... ", end='')
         czas_start = datetime.datetime.now()
@@ -339,22 +369,6 @@ def sortowanie(min, max, count, repeat):
                 wyniki['Sortowanie grzebieniowe']['MIN'] = czas
         else:
             wyniki['Sortowanie grzebieniowe'] = {'SUMA': czas, 'AVG': None, 'MIN': czas, 'MAX': czas}
-        print("DONE!")
-
-        # sortowanie przez wstawianie - PMG
-        print("\tSortowanie przez wstawianie... ", end='')
-        czas_start = datetime.datetime.now()
-        posortowane = insertSort(listaLiczb.copy())
-        czas_stop = datetime.datetime.now()
-        czas = czas_stop - czas_start
-        if 'Sortowanie przez wstawianie' in dict(wyniki):
-            wyniki['Sortowanie przez wstawianie']['SUMA'] += czas
-            if czas > wyniki['Sortowanie przez wstawianie']['MAX']:
-                wyniki['Sortowanie przez wstawianie']['MAX'] = czas
-            if czas < wyniki['Sortowanie przez wstawianie']['MIN']:
-                wyniki['Sortowanie przez wstawianie']['MIN'] = czas
-        else:
-            wyniki['Sortowanie przez wstawianie'] = {'SUMA': czas, 'AVG': None, 'MIN': czas, 'MAX': czas}
         print("DONE!")
 
         # sortowanie metodą Shella - PMG
@@ -501,7 +515,9 @@ def main():
     max = pobierzLiczbeCalkowita("Podaj górny zakres tablicy: ")
     count = pobierzLiczbeCalkowita("Podaj ilość liczb do losowania (sensowna czasowo ilość 10 000): ")
     repeat = pobierzLiczbeCalkowita("Podaj ilość powtórzeń (zalecane przynajmniej 5): ")
-    sortowanie(int(min), int(max), int(count), int(repeat))
+    disableSlow = spytaj("Czy wyłączyć wolne algorytmy (warto, jeśli ilość liczb jest > 10000) (t/n)?")
+
+    sortowanie(int(min), int(max), int(count), int(repeat), disableSlow)
 
     return
 
