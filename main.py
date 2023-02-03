@@ -26,8 +26,48 @@ def generujLiczbyLosowe(min, max, count):
     return listaLiczb
 
 # Merge-sort Marysia
-# ...
+def mergeSort(listaLiczb):
+    if len(listaLiczb) > 1:
+        mid = len(listaLiczb) // 2
+        left = listaLiczb[:mid]
+        right = listaLiczb[mid:]
 
+        # Rekurencyjne wywołanie każdej połowy
+        mergeSort(left)
+        mergeSort(right)
+
+        # Dwa iteratory do przechodzenia przez dwie połówki
+        i = 0
+        j = 0
+
+        # Iterator dla głównej listy
+        k = 0
+
+        while i < len(left) and j < len(right):
+            if left[i] <= right[j]:
+                # Wykorzystanie wartości z lewej połowy
+                listaLiczb[k] = left[i]
+                # Przesunięcie iteratora
+                i += 1
+            else:
+                listaLiczb[k] = right[j]
+                j += 1
+            # Przeniesienie na kolejne miejsce
+            k += 1
+
+        # Dla pozostałych wartości
+        while i < len(left):
+            listaLiczb[k] = left[i]
+            i += 1
+            k += 1
+
+        while j < len(right):
+            listaLiczb[k] = right[j]
+            j += 1
+            k += 1
+    # PMG - było ok, tylko return za duże wcięcie -> było pod blokiem if, więc w przypadku
+    # tablicy jednoelementowej zwracało pustą wartość. Poza tym ok!
+    return listaLiczb
 
 # sortowanie bąbelkowe
 def bubelSort(listaLiczb):
@@ -509,6 +549,13 @@ def wypiszWyniki(wyniki):
     return
 
 def main():
+    lista = generujLiczbyLosowe(0, 100, 10)
+    print(lista)
+    sort = mergeSort(lista)
+    print(sort)
+
+    return
+
 
     winieta()
     min = pobierzLiczbeCalkowita("Podaj dolny zakres tablicy: ")
