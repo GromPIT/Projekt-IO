@@ -1,5 +1,5 @@
 import random, datetime, re
-
+from datetime import timedelta
 # komentarz Marysi
 # komentarz
 # ZAKRES_MIN i ZAKRES_MAX oznaczają przedział z którego losujemy
@@ -211,7 +211,7 @@ def pobierzLiczbeCalkowita(text):
     while not isOk:
         liczba = input(text)
         reg = re.compile("^[0-9]*$")
-        if not reg.match(liczba):
+        if not reg.match(liczba) or liczba=='':
             print("Wprowadzono niepoprawną liczbę. Spróbuj ponownie\n")
         else:
             isOk = True
@@ -361,8 +361,6 @@ def sortowanie(min, max, count, repeat):
         # print(f"Posortowane :\n{posortowane}")
         print("}\n")
 
-    print(wyniki)
-
     wyniki['Sorted']['AVG'] = wyniki['Sorted']['SUMA'] / repeat
     wyniki['Sortowanie bąbelkowe']['AVG'] = wyniki['Sortowanie bąbelkowe']['SUMA'] / repeat
     wyniki['Sortowanie bąbelkowe v2']['AVG'] = wyniki['Sortowanie bąbelkowe v2']['SUMA'] / repeat
@@ -372,10 +370,49 @@ def sortowanie(min, max, count, repeat):
     wyniki['Sortowanie kopcowe']['AVG'] = wyniki['Sortowanie kopcowe']['SUMA'] / repeat
     wyniki['Sortowanie szybkie']['AVG'] = wyniki['Sortowanie szybkie']['SUMA'] / repeat
 
-    print(wyniki)
+    wypiszWyniki(wyniki)
 
     return
 
+def wypiszWyniki(wyniki):
+    # wyniki = sorted(wyniki.items(), key='SUMA')
+    wyniki = sorted(wyniki.items(), key=lambda x: x[1]['AVG'])
+    print("TABELA WYNIKÓW")
+    print()
+    print('/-------------------------------------------------------------------------------------------------'
+          '-------------------------------\\')
+    print('|  MIEJSCE  |       METODA SORTOWANIA       |   ŁĄCZNY CZAS  |   ŚREDNI CZAS  |    ROZSTĘP     |    MIN. CZAS   |  MAKS. CZAS    | ')
+    print('|-------------------------------------------------------------------------------------------------'
+          '-------------------------------|')
+    miejsce = 1
+    for w, v in wyniki:
+        print("| {:^10}| {:30}| {:15}| {:15}| {:15}| {:15}| {:15}|".format(str(miejsce),w, str(v['SUMA']), str(v['AVG']), str(v['MAX'] - v['MIN']), str(v['MIN']), str(v['MAX'])))
+        miejsce += 1
+
+    print('\\------------------------------------------------------------------------------------------------'
+          '--------------------------------/')
+
+    print()
+    input("Naciśnij ENTER...")
+    print()
+    print("REFLEKSJA... (niezależnie od wyników, zakresów i ilości prób)")
+    print()
+    print("Można powiedzieć, że algorytm wbudowany w Pythona jest świetnie zoptymalizowany...")
+    print("Można powiedzieć, że sortowanie szybkie jest naprawdę bardzo szybkie...")
+    print("Można powiedzieć, że sortowanie przez wstawianie ze złożonością O(n^2) jest super wydajne...")
+    print()
+    print("Jednak niezmiennie od wielu lat sortowanie grzebieniowe robi na mnie zdecydowanie największe wrażenie!")
+    print("Nie jest najszybsze. Nie jest najbardziej efektywne... Ale w jego sercu siedzi \"toporne\" sortowanie bąbelkowe")
+    print("i pomimo tego stoi niemalże ramię w ramię z teoretycznie znacznie lepszymi i wydajniejszymi algorytmami!")
+    print("Algorytmami, których złożoność idzie w logarytmy... a tu taki zonk - istnieje bardzo szybki \"bubel\"-sort :-)")
+    print()
+    print("A odkrył je... Polak! Pan Włodzimierz Dobosiewicz w 1980 roku :)")
+    print()
+    print("PMG")
+    print()
+    input("Naciśnij ENTER...")
+
+    return
 
 def main():
 
@@ -386,50 +423,6 @@ def main():
     repeat = pobierzLiczbeCalkowita("Podaj ilość powtórzeń (zalecane przynajmniej 5): ")
     sortowanie(int(min), int(max), int(count), int(repeat))
 
-    # for i in range(10, -1, -1):
-    #     print(i)
-    #
-    # min = 0
-    # max = 10
-    # count = 10
-    #
-    # lista = generujLiczbyLosowe(min, max, count)
-    # print(lista)
-    # sort = insertSort(lista)
-    # print(sort)
-
-    # listaLiczb = generujLiczbyLosowe()
-    #
-    #
-
-    # print()
-    # print(posortowane)
-    #
-
-    #
-    # print()
-    # print(posortowane)
-    #
-    # # sortowanie kopcowe
-
-    #
-    # print()
-    # print(posortowane)
-    #
-    #
-    # # wbudowana w pythona metoda sorted
-    # listaSorted = listaLiczb.copy()
-    # print("Sortowanie ""sorted")
-    # czas_start = datetime.datetime.now()
-    # posortowane = sorted(listaSorted)
-    # czas_stop = datetime.datetime.now()
-    # wyniki['Sorted'] = czas_stop - czas_start
-    #
-    # print()
-    # print(posortowane)
-    #
-    # # wyświetlenie wyników - na razie dirty
-    # print(wyniki)
     return
 
 if __name__ == "__main__":
